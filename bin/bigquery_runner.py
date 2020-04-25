@@ -9,9 +9,6 @@ from google.cloud import bigquery
 from logging.config import fileConfig
 
 
-# Should take json credentials on input
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.dirname(__file__) + "/../key-file.json"
-
 # Configuring the logging level of the docker application
 LOGGING_LEVEL = os.getenv('LOGGING_LEVEL', 'DEBUG')
 logging.basicConfig(level=LOGGING_LEVEL)
@@ -26,15 +23,17 @@ file.close()
 
 def run():
     """Running a SQL query on google environment provided in the command line returns a CSV file with the results"""
-    print("Running SQL query {} in BigQuery...".format(QUERY))
+    logger.info("Running SQL query {} in BigQuery...".format(QUERY))
 
     # Connect to google big query and run SQL query TODO: take json on inout file param
     client = bigquery.Client()
     query_job = client.query("""{}""".format(QUERY))
     results = query_job.result()
 
-    print("Writing result to a CSV file in the csv folder...")
-    with open('csv_result/query-runner-result-{}.csv'.format(datetime.today().strftime('%Y-%m-%d-%H:%M:%S')),
+    logger.info("Writing result to a CSV file in the csv_results folder...")
+    now = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+
+    with open('csv_results/query-runner-result-{}.csv'.format(now),
               'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for i, row in enumerate(results):
@@ -58,8 +57,4 @@ if __name__ == "__main__":
     if sql_query.is_valid():
         run()
     else:
-        logger.warning(
-            ''.join([
-                sql_query.errors
-            ])
-        )
+        logger.warning(''.join([sql_query.errors]))
