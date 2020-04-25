@@ -10,7 +10,7 @@ from logging.config import fileConfig
 
 
 # Should take json credentials on input
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.dirname(__file__) + "/../op-challenge.json"
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = os.path.dirname(__file__) + "/../key-file.json"
 
 # Configuring the logging level of the docker application
 LOGGING_LEVEL = os.getenv('LOGGING_LEVEL', 'DEBUG')
@@ -34,7 +34,7 @@ def run():
     results = query_job.result()
 
     print("Writing result to a CSV file in the csv folder...")
-    with open('csv-result/query-runner-result-{}.csv'.format(datetime.today().strftime('%Y-%m-%d-%H:%M:%S')),
+    with open('csv_result/query-runner-result-{}.csv'.format(datetime.today().strftime('%Y-%m-%d-%H:%M:%S')),
               'w', newline='') as csvfile:
         writer = csv.writer(csvfile, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         for i, row in enumerate(results):

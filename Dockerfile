@@ -8,7 +8,7 @@ RUN set -eux \
 WORKDIR ${APP_DIR}
 COPY . .
 
-ENV GOOGLE_APPLICATION_CREDENTIALS "op-challenge.json"
+ENV GOOGLE_APPLICATION_CREDENTIALS "key-file.json"
 ENV LOGGING_LEVEL "DEBUG"
 
 RUN apt-get update && apt-get install -y python3-pip \
