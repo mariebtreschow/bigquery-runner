@@ -32,4 +32,4 @@ Build the Docker image
 
 Run the docker image
 
-    docker run -v $PWD:/csv-result bigquery-runner lowest_crime_rate_per_day.sql 
+    docker run -v ${PWD}/csv_results:/app/csv_results bigquery-runner sql_queries/chicago_crime_preview_10.sql 
