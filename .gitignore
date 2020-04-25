@@ -1,0 +1,10 @@
+.history
+.pytest_cache
+.coverage
+queryrunner/__pycache__/
+__pycache__
+*.pyc
+venv/
+venv/*
+build/
+.idea
