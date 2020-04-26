@@ -3,7 +3,10 @@ Run a query from the command line to BigQuery that writes the output to a CSV fi
 
 How to use the query runner:
 
-1. Git clone the repository
+1. Git clone the repository and install python virtual environment
+    
+        pip3 install virtualenv
+        
 2. Activate python virtual environment
        
        source venv/bin/activate 
@@ -28,7 +31,7 @@ Example command:
 
 Build the Docker image
 
-     docker build --rm -t bigquery-runner ./
+     docker build --rm -t bigquery-runner .
 
 Run the docker image
 
