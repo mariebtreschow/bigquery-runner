@@ -21,7 +21,7 @@ How to use the query runner:
         
 5. Set the environment variable pointing to your json service account file
 
-        export GOOGLE_APPLICATION_CREDENTIALS=my-service-account-file.json
+        export GOOGLE_APPLICATION_CREDENTIALS=service-account-file.json
 
     
 Run command to write output to CSV file
@@ -32,7 +32,7 @@ You can find the following results written to a CSV in the csv_results folder.
 
 Example command:
 
-     python3 bin/bigquery_runner.py chicago_crime_preview_10.sql
+     python3 bin/bigquery_runner.py sql_queries/chicago_crime_preview_10.sql
 
 
 ## Build a Docker image and run from the command line
