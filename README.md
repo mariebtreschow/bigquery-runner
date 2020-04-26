@@ -7,14 +7,22 @@ How to use the query runner:
     
         pip3 install virtualenv
         
-2. Activate python virtual environment
+2. Create the virtual environment
+        
+        virtualenv -p python3 venv
+        
+3. Activate python virtual environment
        
        source venv/bin/activate 
        
-3. pip install requirements with the command
+4. pip install requirements with the command
 
         pip3 install -r requirements.txt
         
+5. Set the environment variable pointing to your json service account file
+
+        export GOOGLE_APPLICATION_CREDENTIALS=my-service-account-file.json
+
     
 Run command to write output to CSV file
 
