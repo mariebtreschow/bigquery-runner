@@ -53,6 +53,8 @@ def run(query=None):
                     writer.writerow(headers)
                 row = [row for row in row.values()]
                 writer.writerow(row)
+
+            logger.info("Done! Check your csv_results folder...")
     except PermissionError as error:
         logging.error(error)
 

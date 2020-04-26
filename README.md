@@ -1,5 +1,6 @@
 # BigQuery runner 
 Run a query from the command line to BigQuery that writes the output to a CSV file.
+You need to have Python 3 along with pip, the python package installer installed. 
 
 How to use the query runner:
 
@@ -17,18 +18,18 @@ How to use the query runner:
        
 4. pip install requirements with the command
 
-        pip3 install -r requirements.txt
+       pip3 install -r requirements.txt
         
 5. Set the environment variable pointing to your json service account file
 
-        export GOOGLE_APPLICATION_CREDENTIALS=service-account-file.json
+       export GOOGLE_APPLICATION_CREDENTIALS=service-account-file.json
 
     
 Run command to write output to CSV file
 
     python3 bin/bigquery_runner.py path/to/your/file.sql
 
-You can find the following results written to a CSV in the csv_results folder.
+You can find the following results written to a CSV in the csv_results folder
 
 Example command:
 
@@ -47,6 +48,12 @@ Run the docker image with the provided path to where you wish to store your CSV 
 
     docker run -v /path/to/your/folder:/app/csv_results bigquery-runner sql_queries/chicago_crime_preview_10.sql 
 
-Example
+Example:
     
      docker run -v ${PWD}/csv_results:/app/csv_results bigquery-runner sql_queries/chicago_crime_preview_10.sql 
+     
+If you want to use your own google application credentials you can do so by adding the GOOGLE_APPLICATION_CREDENTIALS
+environment variable on the run command with the value set to the path of your json file
+
+
+     docker run -e GOOGLE_APPLICATION_CREDENTIALS="service-account-file.json" -v ${PWD}/csv_results:/app/csv_results bigquery-runner sql_queries/lowest_crime_rate_per_day.sql 
