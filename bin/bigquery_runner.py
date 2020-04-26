@@ -3,7 +3,6 @@ import os
 import sys
 import csv
 import logging
-import sqlvalidator
 from datetime import datetime
 from google.cloud import bigquery
 from logging.config import fileConfig
@@ -15,9 +14,6 @@ logging.basicConfig(level=LOGGING_LEVEL)
 fileConfig(os.path.dirname(__file__) + '/../logging.conf')
 logger = logging.getLogger(__name__)
 
-# TODO: CONVERT TIME FOR DOCKER
-# TODO: fix file submittion on docker and json credentials
-
 
 def get_query():
     """Try reading the file submitted on the command line"""
@@ -26,22 +22,15 @@ def get_query():
         query = file.read()
         file.close()
         return query
-    except IndexError:
-        logger.warning("You need to submit a sql file with the query you want to run")
+    except (IndexError, FileNotFoundError) as error:
+        logger.warning("You need to provide a sql file with the SQL to be run")
+        logger.error(error)
         sys.exit(1)
 
 
-def validate_query(query):
-    """Validate query submitted through the command line in a sql file format"""
-    sql_query = sqlvalidator.parse(query)
-    if not sql_query.is_valid():
-        raise SyntaxError('Your query could not be parsed with the following error {}'.format(sql_query.errors))
-    return True
-
-
-def run(query):
+def run(query=None):
     """Running a SQL query on google environment provided in the command line returns a CSV file with the results"""
-    logger.info("Running SQL query {} in BigQuery...".format(query))
+    logger.info("Running SQL query: {} in BigQuery...".format(query))
 
     client = bigquery.Client()
     query_job = client.query("""{}""".format(query))
@@ -79,7 +68,7 @@ sys.excepthook = global_exception_handler
 
 if __name__ == "__main__":
     query = get_query()
-    if validate_query(query):
+    if query:
         run(query)
     else:
-        logger.warning(''.join(['SQL query is not valid']))
+        logger.warning(''.join(['You need to provide a sql file containing a SQL query']))

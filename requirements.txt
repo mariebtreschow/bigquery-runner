@@ -1,2 +1,1 @@
 google-cloud-bigquery==1.24.0
-sqlvalidator==0.0.2

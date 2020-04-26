@@ -29,10 +29,16 @@ Example command:
 
 ## Build a Docker image and run from the command line
 
+Add the sql files with the queries you want to run to the sql_queries folder.
+
 Build the Docker image
 
      docker build --rm -t bigquery-runner .
 
-Run the docker image
+Run the docker image with the provided path to where you wish to store your CSV file
 
-    docker run -v ${PWD}/csv_results:/app/csv_results bigquery-runner sql_queries/chicago_crime_preview_10.sql 
+    docker run -v /path/to/your/folder:/app/csv_results bigquery-runner sql_queries/chicago_crime_preview_10.sql 
+
+Example
+    
+     docker run -v ${PWD}/csv_results:/app/csv_results bigquery-runner sql_queries/chicago_crime_preview_10.sql 
