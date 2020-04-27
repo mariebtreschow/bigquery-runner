@@ -1,6 +1,7 @@
 # BigQuery runner 
 Run a query from the command line to BigQuery that writes the output to a CSV file.
-You need to have Python 3 along with pip, the python package installer installed. 
+You need to have Python 3 along with pip, the python package installer installed or you
+can build the docker image and run it (see instructions below). 
 
 How to use the query runner:
 
