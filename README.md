@@ -39,7 +39,7 @@ Example command:
 
 ## Build a Docker image and run from the command line
 
-Add the sql files with the queries you want to run to the sql_queries folder.
+Add the sql files with the queries you want to run to the sql_queries folder in the project.
 
 Build the Docker image
 

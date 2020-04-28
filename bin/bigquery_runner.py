@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_query():
-    """Try reading the file submitted on the command line"""
+    """Try reading the file submitted on the command line and return the query"""
     try:
         file = open(sys.argv[1], 'r')
         query = file.read()
@@ -28,8 +28,23 @@ def get_query():
         sys.exit(1)
 
 
-def run(query=None):
-    """Running a SQL query on google environment provided in the command line returns a CSV file with the results"""
+def validate_query(query):
+    """Assuming we only want to run select queries,
+     this should be improved based on requirements or perhaps disabled"""
+    try:
+        select = query.split()
+        select_statement = select[0].upper()
+        if select_statement != 'SELECT':
+            raise ValueError("Only select statements are allowed")
+        else:
+            return True
+    except (ValueError, IndexError) as error:
+        logger.error(error)
+
+
+def run(query):
+    """Running a SQL query on the bigquery google environment
+    provided in the command line returns a CSV file with the results"""
     logger.info("Running SQL query: {} in BigQuery...".format(query))
 
     client = bigquery.Client()
@@ -70,7 +85,7 @@ sys.excepthook = global_exception_handler
 
 if __name__ == "__main__":
     query = get_query()
-    if query:
+    if validate_query(query):
         run(query)
     else:
-        logger.warning(''.join(['You need to provide a sql file containing a SQL query']))
+        logger.warning(''.join(['You need to provide a sql file containing a SQL select query']))
