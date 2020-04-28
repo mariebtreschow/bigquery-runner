@@ -5,7 +5,7 @@ can build the docker image and run it (see instructions below).
 
 How to use the query runner:
 
-1. Git clone the repository and install python virtual environment
+1. Git clone the repository, cd into the project folder and install python virtual environment
     
         pip3 install virtualenv
         
@@ -21,9 +21,10 @@ How to use the query runner:
 
        pip3 install -r requirements.txt
         
-5. Set the environment variable pointing to your json service account file
+5. Set the environment variable from the command line pointing to the path of your json service account file
+    or use the one in the project folder called key-file.json
 
-       export GOOGLE_APPLICATION_CREDENTIALS=service-account-file.json
+       export GOOGLE_APPLICATION_CREDENTIALS=key-file.json
 
     
 Run command to write output to CSV file
@@ -57,4 +58,4 @@ If you want to use your own google application credentials you can do so by addi
 environment variable on the run command with the value set to the path of your json file
 
 
-     docker run -e GOOGLE_APPLICATION_CREDENTIALS="service-account-file.json" -v ${PWD}/csv_results:/app/csv_results bigquery-runner sql_queries/lowest_crime_rate_per_day.sql 
+     docker run -e GOOGLE_APPLICATION_CREDENTIALS="your-key-file.json" -v ${PWD}/csv_results:/app/csv_results bigquery-runner sql_queries/lowest_crime_rate_per_day.sql 
