@@ -1,7 +1,8 @@
 # BigQuery runner 
 Run a query from the command line to BigQuery that writes the output to a CSV file.
 You need to have Python 3 along with pip, the python package installer installed or you
-can build the docker image and run it (see instructions below). 
+can build the docker image and run it (see instructions below). You need to add your json 
+credentials from Google in the root of the project and name it key-file.json before building the Docker image.
 
 How to use the query runner:
 
